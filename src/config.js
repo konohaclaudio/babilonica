@@ -3,7 +3,7 @@ const config = {
     name: 'Babilônica',
     tagline: 'Joias em Aço Inox · Peças Autorais · Curadoria Ancestral',
     whatsapp: '5511956522793',
-    logo: '/logo.svg',
+    logo: '/logo.png',
     city: 'Piraju — SP',
     instagram: 'https://www.instagram.com/babilonica7/',
   },

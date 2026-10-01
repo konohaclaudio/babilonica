@@ -52,8 +52,10 @@ export default function Login() {
   return (
     <div className="login-page">
       <div className="login-box">
-        <StarSvg />
-        <div className="login-logo">{config.store.name}</div>
+        {config.store.logo
+          ? <img src={config.store.logo} alt={config.store.name} className="login-logo-img" />
+          : <><StarSvg /><div className="login-logo">{config.store.name}</div></>
+        }
         <div className="login-subtitle">Acesso ao Sanctum</div>
 
         <form className="login-form" onSubmit={handleSubmit}>

@@ -186,13 +186,21 @@ export default function Admin() {
   async function handleLogoUpload(e) {
     const file = e.target.files[0]
     if (!file) return
+
+    if (DEMO) {
+      const localUrl = URL.createObjectURL(file)
+      setSettings(s => ({ ...s, logo_url: localUrl }))
+      showToast('Logo atualizado — visível nesta sessão. Salve para persistir a URL.')
+      return
+    }
+
     const ext = file.name.split('.').pop()
     const path = `logo/logo-${Date.now()}.${ext}`
     const { error } = await supabase.storage.from('product-images').upload(path, file, { upsert: true })
     if (error) { showToast('Erro ao fazer upload da imagem.', 'error'); return }
     const { data: { publicUrl } } = supabase.storage.from('product-images').getPublicUrl(path)
     setSettings(s => ({ ...s, logo_url: publicUrl }))
-    showToast('Imagem enviada com sucesso.')
+    showToast('Logo enviado com sucesso.')
   }
 
   function openNew()   { setEditProduct(null); setModalOpen(true) }
@@ -210,8 +218,10 @@ export default function Admin() {
       <header className="admin-topbar-light">
         <div className="admin-topbar-left">
           <div className="admin-brand">
-            <StarSvg />
-            <span className="admin-brand-name">Babilônica</span>
+            {config.store.logo
+              ? <img src={config.store.logo} alt={config.store.name} className="admin-brand-logo" />
+              : <><StarSvg /><span className="admin-brand-name">{config.store.name}</span></>
+            }
           </div>
 
           <div className="admin-dropdown-wrap" ref={navRef}>
@@ -302,8 +312,8 @@ export default function Admin() {
                       <tr key={p.id}>
                         <td>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
-                            {p.image_url
-                              ? <img src={p.image_url} alt={p.name} className="product-thumb" />
+                            {(p.images?.[0] || p.image_url)
+                              ? <img src={p.images?.[0] || p.image_url} alt={p.name} className="product-thumb" />
                               : <div className="product-thumb-placeholder">◇</div>
                             }
                             <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.0625rem' }}>{p.name}</span>
@@ -558,21 +568,18 @@ export default function Admin() {
                   />
                 </div>
 
-                {!DEMO && (
-                  <div className="settings-field">
-                    <label className="settings-label">Ou fazer upload</label>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="settings-file-input"
-                      onChange={handleLogoUpload}
-                    />
-                  </div>
-                )}
-
-                {DEMO && (
-                  <p className="settings-hint">No modo demo, insira uma URL de imagem externa.</p>
-                )}
+                <div className="settings-field">
+                  <label className="settings-label">Upload do logotipo</label>
+                  <input
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                    className="settings-file-input"
+                    onChange={handleLogoUpload}
+                  />
+                  {DEMO && (
+                    <p className="settings-hint">Modo demo: upload local visível nesta sessão. Para salvar permanentemente use a URL ou ative o Supabase.</p>
+                  )}
+                </div>
               </div>
 
               <div className="settings-actions">

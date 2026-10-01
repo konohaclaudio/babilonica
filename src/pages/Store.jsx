@@ -157,7 +157,12 @@ export default function Store() {
       {/* NAV */}
       <nav className="nav">
         <div style={{ gridColumn: 1 }} />
-        <span className="nav__logo">{config.store.name}</span>
+        <div className="nav__logo">
+          {config.store.logo
+            ? <img src={config.store.logo} alt={config.store.name} className="nav__logo-img" />
+            : <span>{config.store.name}</span>
+          }
+        </div>
         <div className="nav__actions">
           <button
             type="button"
