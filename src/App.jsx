@@ -4,6 +4,7 @@ import Login from './pages/Login'
 import Admin from './pages/Admin'
 import Confirm from './pages/Confirm'
 import ProductDetail from './pages/ProductDetail'
+import Manual from './pages/Manual'
 import { supabase } from './lib/supabase'
 import { useEffect, useState } from 'react'
 
@@ -36,6 +37,7 @@ export default function App() {
         <Route path="/confirmado" element={<Confirm />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<RequireAuth><Admin /></RequireAuth>} />
+        <Route path="/manual" element={<Manual />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
