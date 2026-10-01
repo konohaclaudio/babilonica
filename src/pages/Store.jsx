@@ -131,6 +131,9 @@ export default function Store() {
   function addToCart(product) {
     setCart(prev => {
       const existing = prev.find(i => i.id === product.id)
+      const currentQty = existing ? existing.qty : 0
+      const hasStock = product.stock !== null && product.stock !== undefined
+      if (hasStock && currentQty >= product.stock) return prev
       if (existing) return prev.map(i => i.id === product.id ? { ...i, qty: i.qty + 1 } : i)
       return [...prev, { ...product, qty: 1 }]
     })
@@ -139,7 +142,13 @@ export default function Store() {
 
   function updateQty(id, delta) {
     setCart(prev =>
-      prev.map(i => i.id === id ? { ...i, qty: i.qty + delta } : i).filter(i => i.qty > 0)
+      prev.map(i => {
+        if (i.id !== id) return i
+        const newQty = i.qty + delta
+        const hasStock = i.stock !== null && i.stock !== undefined
+        if (delta > 0 && hasStock && newQty > i.stock) return i
+        return { ...i, qty: newQty }
+      }).filter(i => i.qty > 0)
     )
   }
 
@@ -267,6 +276,7 @@ export default function Store() {
                 product={product}
                 currency={config.catalog.currency}
                 onAdd={addToCart}
+                cartQty={cart.find(i => i.id === product.id)?.qty ?? 0}
               />
             ))}
           </div>

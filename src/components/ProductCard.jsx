@@ -1,13 +1,18 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function ProductCard({ product, currency, onAdd }) {
+export default function ProductCard({ product, currency, onAdd, cartQty = 0 }) {
   const [added, setAdded] = useState(false)
   const price = `${currency} ${Number(product.price).toFixed(2).replace('.', ',')}`
   const navigate = useNavigate()
   const imgSrc = product.images?.[0] || product.image_url
 
+  const hasStock = product.stock !== null && product.stock !== undefined
+  const esgotado = hasStock && product.stock === 0
+  const noLimit  = hasStock && cartQty >= product.stock
+
   function handleAdd() {
+    if (esgotado || noLimit) return
     onAdd(product)
     setAdded(true)
     setTimeout(() => setAdded(false), 2000)
@@ -24,6 +29,7 @@ export default function ProductCard({ product, currency, onAdd }) {
           ? <img src={imgSrc} alt={product.name} className="product-card__img" loading="lazy" />
           : <div className="product-card__img-placeholder">◇</div>
         }
+        {esgotado && <div className="product-card__badge-esgotado">Esgotado</div>}
       </div>
       <div className="product-card__body">
         {product.category && (
@@ -39,10 +45,11 @@ export default function ProductCard({ product, currency, onAdd }) {
         <div className="product-card__price">{price}</div>
         <button
           type="button"
-          className={`product-card__add${added ? ' added' : ''}`}
+          className={`product-card__add${added ? ' added' : ''}${(esgotado || noLimit) ? ' disabled' : ''}`}
           onClick={handleAdd}
+          disabled={esgotado || noLimit}
         >
-          {added ? 'Adicionado ✦' : 'Adicionar à Sacola'}
+          {esgotado ? 'Esgotado' : noLimit ? 'Limite atingido' : added ? 'Adicionado ✦' : 'Adicionar à Sacola'}
         </button>
       </div>
     </div>

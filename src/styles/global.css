@@ -537,6 +537,31 @@ body.store-cursor-active button { cursor: none; }
   cursor: default;
   pointer-events: none;
 }
+.product-card__add.disabled,
+.product-card__add:disabled {
+  background: var(--surface);
+  color: var(--dim);
+  border-color: var(--border);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.product-card__img-wrap { position: relative; }
+.product-card__badge-esgotado {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: var(--text);
+  color: var(--white);
+  font-size: 0.6rem;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+}
+.cart-item__qty-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
 
 /* ===================== SACOLA (CART) DRAWER ===================== */
 .cart-overlay {

@@ -22,6 +22,7 @@ export default function ProductModal({ product, categories, onSave, onClose }) {
     category:    product?.category    || categories[0] || '',
     active:      product?.active      ?? true,
     sort_order:  product?.sort_order  || 0,
+    stock:       product?.stock       ?? '',
   })
   const [images, setImages]         = useState(seedImages)
   const [uploading, setUploading]   = useState([false, false, false])
@@ -94,6 +95,7 @@ export default function ProductModal({ product, categories, onSave, onClose }) {
       id:         product?.id,
       price:      parseFloat(form.price),
       sort_order: parseInt(form.sort_order) || 0,
+      stock:      form.stock === '' ? null : parseInt(form.stock),
       images:     filtered,
       image_url:  filtered[0] || '',
     })
@@ -216,6 +218,17 @@ export default function ProductModal({ product, categories, onSave, onClose }) {
 
             <div className="form-row">
               <div className="form-group">
+                <label>Estoque</label>
+                <input
+                  type="number"
+                  min="0"
+                  value={form.stock}
+                  onChange={e => set('stock', e.target.value)}
+                  placeholder="∞ ilimitado"
+                />
+                <p className="form-hint">Deixe vazio para estoque ilimitado</p>
+              </div>
+              <div className="form-group">
                 <label>Ordem (menor = primeiro)</label>
                 <input
                   type="number"
@@ -224,6 +237,9 @@ export default function ProductModal({ product, categories, onSave, onClose }) {
                   min="0"
                 />
               </div>
+            </div>
+
+            <div className="form-row">
               <div className="form-group">
                 <label>Status</label>
                 <select value={form.active ? 'true' : 'false'} onChange={e => set('active', e.target.value === 'true')}>

@@ -82,7 +82,12 @@ export default function Cart({ items, open, onClose, onUpdateQty, onRemove, onCl
                     <div className="cart-item__qty">
                       <button type="button" className="cart-item__qty-btn" onClick={() => onUpdateQty(item.id, -1)}>−</button>
                       <span className="cart-item__qty-num">{item.qty}</span>
-                      <button type="button" className="cart-item__qty-btn" onClick={() => onUpdateQty(item.id, 1)}>+</button>
+                      <button
+                        type="button"
+                        className="cart-item__qty-btn"
+                        onClick={() => onUpdateQty(item.id, 1)}
+                        disabled={item.stock !== null && item.stock !== undefined && item.qty >= item.stock}
+                      >+</button>
                     </div>
                     <button type="button" className="cart-item__remove" onClick={() => onRemove(item.id)}>
                       remover
