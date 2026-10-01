@@ -289,6 +289,16 @@ body.store-cursor-active button { cursor: none; }
   margin: 0 auto 1.5rem;
 }
 
+.store-manifesto__stamp {
+  width: 220px;
+  height: auto;
+  object-fit: contain;
+  margin: 0 auto 2rem;
+  display: block;
+  filter: invert(1);
+  opacity: 0.92;
+}
+
 .store-manifesto__title {
   font-family: var(--font-display);
   font-size: clamp(2rem, 6vw, 3.5rem);
@@ -783,6 +793,14 @@ body.store-cursor-active button { cursor: none; }
   padding: 2rem 1.5rem;
   text-align: center;
   gap: 1.25rem;
+}
+
+.confirm-stamp {
+  width: 200px;
+  height: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  display: block;
 }
 
 .confirm-icon {

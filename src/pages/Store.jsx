@@ -222,12 +222,11 @@ export default function Store() {
       <section className="store-manifesto">
         <div className="store-manifesto__bg" />
         <div className="store-manifesto__content reveal">
-          <svg width="36" height="36" viewBox="0 0 100 100" className="store-manifesto__star" aria-hidden="true">
-            <polygon
-              points="50,5 60,35 95,35 68,55 78,85 50,65 22,85 32,55 5,35 40,35"
-              stroke="currentColor" strokeWidth="2" fill="none" strokeLinejoin="round"
-            />
-          </svg>
+          <img
+            src="/babilonica.jpeg"
+            alt="Babilônica — Não Esconda Sua Força"
+            className="store-manifesto__stamp"
+          />
           <h2 className="store-manifesto__title">Inox como intenção.</h2>
           <p className="store-manifesto__text">
             Não usamos metais que mandam embora. Aço inox 316L — grau cirúrgico, eterno, incorruptível.

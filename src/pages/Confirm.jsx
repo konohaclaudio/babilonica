@@ -6,8 +6,11 @@ export default function Confirm() {
 
   return (
     <div className="confirm-page">
-      <div className="confirm-icon">✦</div>
-      <h1 className="confirm-title">Ritual enviado</h1>
+      <img
+        src="/obrigada.jpeg"
+        alt="Obrigada — Babilônica"
+        className="confirm-stamp"
+      />
       <p className="confirm-subtitle">
         Seu pedido foi encaminhado à {config.store.name} via WhatsApp.
         Em breve você receberá a confirmação.
@@ -17,7 +20,7 @@ export default function Confirm() {
         className="confirm-back"
         onClick={() => navigate('/')}
       >
-        Retornar ao Sanctum
+        Continuar explorando →
       </button>
     </div>
   )
