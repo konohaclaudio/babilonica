@@ -1,7 +1,7 @@
 import config from '../config'
 
 const GITHUB  = 'https://github.com/konohaclaudio/babilonica'
-const VERCEL  = 'https://babilonica.vercel.app'       // atualizar após deploy
+const VERCEL  = 'https://babilonica-vitrine.vercel.app'
 const STORE   = VERCEL
 const ADMIN   = `${STORE}/login`
 
@@ -45,7 +45,7 @@ export default function Manual() {
       {/* TOPO */}
       <header className="manual-header">
         <div className="manual-header__brand">
-          <img src="/logo.png" alt="Babilônica" className="manual-header__logo" />
+          <img src="/logo.jpeg" alt="Babilônica" className="manual-header__logo" />
         </div>
         <div className="manual-header__meta">
           <div className="manual-header__product">Manual do Sistema</div>
@@ -89,8 +89,8 @@ export default function Manual() {
 
           <Block title="Painel Administrativo (Babi)">
             <Credential label="URL do admin"  value={ADMIN} mono />
-            <Credential label="Usuário"       value="babi" mono />
-            <Credential label="Senha"         value="babilonica" mono />
+            <Credential label="Email"         value="babi@babilonica.com" mono />
+            <Credential label="Senha"         value="123456" mono />
             <div className="manual-notice">
               Guarde estas credenciais em lugar seguro.
               Em produção, a senha pode ser alterada no painel do Supabase em{' '}
@@ -107,7 +107,7 @@ export default function Manual() {
               Acesse <span className="mono">{ADMIN}</span> pelo celular ou computador.
             </Step>
             <Step n="2" title="Digite as credenciais">
-              Usuário: <span className="mono">babi</span> · Senha: <span className="mono">babilonica</span>
+              Email: <span className="mono">babi@babilonica.com</span> · Senha: <span className="mono">123456</span>
             </Step>
             <Step n="3" title="Clique em Entrar">
               Você será redirecionada ao painel com as seções: Catálogo, Rituais, Categorias e Alquimia.
