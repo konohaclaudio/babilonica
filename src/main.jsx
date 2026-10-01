@@ -29,7 +29,7 @@ async function bootstrap() {
     } catch {}
   } else {
     try {
-      const { data } = await supabase.from('settings').select('*').eq('id', 1).single()
+      const { data } = await supabase?.from('settings').select('*').eq('id', 1).single() ?? {}
       if (data) {
         if (data.name)     config.store.name     = data.name
         if (data.tagline)  config.store.tagline  = data.tagline
